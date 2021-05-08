@@ -5,7 +5,7 @@ function LoginForm() {
     <>
       <div className="container d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
         <div className="w-100" style={{ maxWidth: "400px" }}>
-          <div className="card">
+          <div className="card rounded-3">
             <div className="card-body">
               <h2 className="text-center mb-4">Log In</h2>
               <form className="">
