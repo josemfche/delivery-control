@@ -6,7 +6,8 @@ function RegisterForm() {
 
   const initialState = {
     email: "",
-    password: ""
+    password: "",
+    password1: ""
   }
 
   const [data, setData] = useState(initialState)
@@ -15,22 +16,27 @@ function RegisterForm() {
   const onChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value })
     console.log(data)
+    console.log(userData)
   }
 
   const onSubmit = (e) => {
     e.preventDefault();
 
-    auth.createUserWithEmailAndPassword(data.email, data.password)
-      .then((userCredential) => {
-        var user = userCredential.user
-        setUser(user)
-        console.log(userData)
-      })
-      .catch((error) => {
-        var errorCode = error.code
-        var errorMessage = error.message
-        console.warn(errorCode, errorMessage)
-      })
+    if (data.password == data.password1) {
+      auth.createUserWithEmailAndPassword(data.email, data.password)
+        .then((userCredential) => {
+          var user = userCredential.user
+          setUser(user)
+          console.log(userData)
+        })
+        .catch((error) => {
+          var errorCode = error.code
+          var errorMessage = error.message
+          console.warn(errorCode, errorMessage)
+        })
+    } else {
+      alert("Passwords don't coincide")
+    }
   }
 
   return (
@@ -49,13 +55,17 @@ function RegisterForm() {
                   <label className="form-label" id="inputGroup-sizing-sm">Password</label>
                   <input onChange={onChange} type="password" name="password" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" />
                 </div>
+                <div className="form-group mb-3">
+                  <label className="form-label" id="inputGroup-sizing-sm">Confirm Password</label>
+                  <input onChange={onChange} type="password" name="password1" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" />
+                </div>
                 <div className="d-flex align-items-center justify-content-center">
                   <button type="submit" className="btn btn-primary">Register</button>
                 </div>
               </form>
-              <div className="" >
+              <div className="mt-3" >
                 <Link href="/login" >
-                  <a>Already have an account?</a>
+                  <a className="btn" >Already have an account?</a>
                 </Link>
               </div>
             </div>

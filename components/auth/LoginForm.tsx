@@ -20,17 +20,17 @@ function LoginForm() {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    auth.createUserWithEmailAndPassword(data.email, data.password)
+    auth.signInWithEmailAndPassword(data.email, data.password)
       .then((userCredential) => {
-        var user = userCredential.user
+        let user = userCredential.user;
         setUser(user)
         console.log(userData)
       })
       .catch((error) => {
-        var errorCode = error.code
-        var errorMessage = error.message
-        console.warn(errorCode, errorMessage)
-      })
+        let errorCode = error.code;
+        let errorMessage = error.message;
+        console.warn(errorMessage, errorCode)
+      });
   }
 
   return (
@@ -53,9 +53,9 @@ function LoginForm() {
                   <button type="submit" className="btn btn-primary">Login</button>
                 </div>
               </form>
-              <div className="" >
+              <div className="mt-3" >
                 <Link href="/register" >
-                  <a>Don't have an account?</a>
+                  <a className="btn" >Don't have an account?</a>
                 </Link>
               </div>
             </div>
