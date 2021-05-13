@@ -3,6 +3,7 @@ import { userContext } from '../../context/createContext/UserContext'
 import { useState, useContext } from 'react'
 import Link from 'next/link'
 import { SET_USER, UNSET_USER } from '../../context/types'
+import Router from "next/router";
 
 function LoginForm() {
 
@@ -31,6 +32,7 @@ function LoginForm() {
           type: SET_USER,
           payload: user
         })
+        Router.push("/dashboard")
       })
       .catch((error) => {
         let errorCode = error.code;
@@ -65,9 +67,6 @@ function LoginForm() {
               <div className="mt-3" >
                 <Link href="/register" >
                   <a className="btn" >Don't have an account?</a>
-                </Link>
-                <Link href="/dashboard" >
-                  <a className="btn" >Dashboard</a>
                 </Link>
               </div>
             </div>

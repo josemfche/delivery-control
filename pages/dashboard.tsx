@@ -9,7 +9,6 @@ export default function dashboard() {
             <>
                 <h1>Dashboard</h1>
                 <AddDelivery />
-                <button className="btn btn-danger" onClick={() => auth.signOut()}>Sign Out</button>
             </>
         </PrivateRoute>
     )

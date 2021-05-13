@@ -35,5 +35,3 @@ yarn-error.log*
 requirements.txt
 .env.development
 .env*.local
-
-.vercel

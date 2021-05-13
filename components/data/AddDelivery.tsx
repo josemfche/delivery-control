@@ -13,7 +13,6 @@ function AddDelivery(props) {
         price: string,
         delivery_zone: string,
         load_description: string,
-        target: string,
         client: {
             type: string,
             name: string,
@@ -33,7 +32,6 @@ function AddDelivery(props) {
         price: "",
         delivery_zone: "",
         load_description: "",
-        target: "",
         client: {
             type: "",
             name: "",
@@ -98,53 +96,68 @@ function AddDelivery(props) {
         <div className="" >
             <div className="container">
                 <form onSubmit={onSubmit} className="row">
-                    <div className="col-6" >
-                        <div className="form-group mb-3">
-                            <label className="form-label" htmlFor="">price</label>
-                            <input className="form-control" name="price" onChange={onChange} type="text" />
-                        </div>
-                        <div className="form-group mb-3">
-                            <label className="form-label" htmlFor="">delivery_zone</label>
-                            <input className="form-control" name="delivery_zone" onChange={onChange} type="text" />
-                        </div>
-                        <div className="form-group mb-3">
-                            <label className="form-label" htmlFor="">load_description</label>
-                            <input className="form-control" name="load_description" onChange={onChange} type="text" />
-                        </div>
-                        <div className="form-group mb-3">
-                            <label className="form-label" htmlFor="">target</label>
-                            <input className="form-control" name="target" onChange={onChange} type="text" />
-                        </div>
-                    </div>
-                    <div className="col-6" >
-                        <div className="form-group mb-3">
-                            <label className="form-label" htmlFor="">type</label>
-                            <input className="form-control" name="type" onChange={onChange} type="text" />
-                        </div>
-                        <div className="form-group mb-3">
-                            <label className="form-label" htmlFor="">name</label>
-                            <input className="form-control" name="name" onChange={onChange} type="text" />
-                        </div>
-                        <div className="form-group mb-3">
-                            <label className="form-label" htmlFor="">tlf</label>
-                            <input className="form-control" name="tlf" onChange={onChange} type="text" />
-                        </div>
-                        <div className="form-group mb-3">
-                            <label className="form-label" htmlFor="">email</label>
-                            <input className="form-control" name="email" type="email" onChange={onChange} />
-                        </div>
-                        <div className="form-group mb-3">
-                            <label className="form-label" htmlFor="">payment_method</label>
-                            <input className="form-control" name="payment_method" onChange={onChange} type="text" />
+                    <div className="col-12 col-sm-6" >
+                        <div className="card">
+                            <h4 className="m-3">Datos del delivery</h4>
+                            <div className="card-body">
+                                <div className="form-group mb-3">
+                                    <label className="form-label" htmlFor="">Precio del delivery $</label>
+                                    <input className="form-control" name="price" onChange={onChange} type="number" />
+                                </div>
+                                <div className="form-group mb-3">
+                                    <label className="form-label" htmlFor="">Zona de entrega</label>
+                                    <input className="form-control" name="delivery_zone" onChange={onChange} type="text" />
+                                </div>
+                                <div className="form-group mb-3">
+                                    <label className="form-label" htmlFor="">Descripción de la carga</label>
+                                    <input className="form-control" name="load_description" onChange={onChange} type="text" />
+                                </div>
+
+                            </div>
                         </div>
                     </div>
-                    <button type="submit" >Add Delivery</button>
+                    <div className="col-12 col-sm-6" >
+                        <div className="form-group mb-3">
+                            <div className="card">
+                                <h4 className="m-3">Datos del cliente</h4>
+                                <div className="card-body">
+                                    <label className="form-label" htmlFor="">Tipo de cliente</label>
+                                    <select onChange={onChange} name="type" className="form-select" aria-label="Default select example">
+                                        <option selected value="Persona">Persona</option>
+                                        <option value="Empresa">Empresa</option>
+                                    </select>
+                                </div>
+                                <div className="form-group m-3">
+                                    <label className="form-label" htmlFor="">Nombre</label>
+                                    <input className="form-control" name="name" onChange={onChange} type="text" />
+                                </div>
+                                <div className="form-group m-3">
+                                    <label className="form-label" htmlFor="">N° de teléfono</label>
+                                    <input className="form-control" name="tlf" onChange={onChange} type="tel" />
+                                </div>
+                                <div className="form-group m-3">
+                                    <label className="form-label" htmlFor="">Email</label>
+                                    <input className="form-control" name="email" type="email" onChange={onChange} />
+                                </div>
+                                <div className="form-group m-3">
+                                    <label className="form-label" htmlFor="">Método de pago</label>
+                                    <select onChange={onChange} name="payment_method" className="form-select" aria-label="Default select example">
+                                        <option value="Cash">Cash</option>
+                                        <option value="Zelle">Zelle</option>
+                                        <option value="Pago Móvil">Pago Móvil</option>
+                                        <option value="Transferencia">Transferencia</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button className="btn btn-primary" type="submit" >Add Delivery</button>
                 </form>
-                <div>
-                    <a href={`https://wa.me/${data.client.tlf}?text=${"Su pedido es: " + encodeURI(data.load_description) + " Para entregar en: " + data.delivery_zone}`} target="_blank">Send Whats</a>
+                <div className="btn btn-success mt-3">
+                    <a className="text-white" href={`https://wa.me/${data.client.tlf}?text=${"Su pedido es: " + encodeURI(data.load_description) + " Para entregar en: " + data.delivery_zone}`} target="_blank">Send Whats</a>
                 </div>
-                <div>
-                    <a href={`whatsapp://send?text=${"Supedidoes:" + encodeURI(data.load_description) + "Para entregaren:" + data.delivery_zone}`} data-action="share/whatsapp/share"
+                <div className="btn btn-success mt-3">
+                    <a className="text-white" href={`whatsapp://send?text=${"Supedidoes:" + encodeURI(data.load_description) + "Para entregaren:" + data.delivery_zone}`} data-action="share/whatsapp/share"
                         target="_blank">Send Whats share</a>
                 </div>
             </div>
