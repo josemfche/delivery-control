@@ -1,8 +1,12 @@
 import { auth } from '../../firebase'
-import { useState } from 'react'
+import { userContext } from '../../context/createContext/UserContext'
+import { useState, useContext } from 'react'
 import Link from 'next/link'
+import { SET_USER, UNSET_USER } from '../../context/types'
 
 function LoginForm() {
+
+  const { userDispatch } = useContext(userContext)
 
   const initialState = {
     email: "",
@@ -10,11 +14,11 @@ function LoginForm() {
   }
 
   const [data, setData] = useState(initialState)
-  const [userData, setUser] = useState(null)
 
   const onChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value })
     console.log(data)
+
   }
 
   const onSubmit = (e) => {
@@ -23,12 +27,17 @@ function LoginForm() {
     auth.signInWithEmailAndPassword(data.email, data.password)
       .then((userCredential) => {
         let user = userCredential.user;
-        setUser(user)
-        console.log(userData)
+        userDispatch({
+          type: SET_USER,
+          payload: user
+        })
       })
       .catch((error) => {
         let errorCode = error.code;
         let errorMessage = error.message;
+        userDispatch({
+          type: UNSET_USER
+        })
         console.warn(errorMessage, errorCode)
       });
   }
@@ -56,6 +65,9 @@ function LoginForm() {
               <div className="mt-3" >
                 <Link href="/register" >
                   <a className="btn" >Don't have an account?</a>
+                </Link>
+                <Link href="/dashboard" >
+                  <a className="btn" >Dashboard</a>
                 </Link>
               </div>
             </div>
