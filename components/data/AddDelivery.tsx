@@ -157,7 +157,7 @@ function AddDelivery(props) {
                     <a className="text-white" href={`https://wa.me/${data.client.tlf}?text=${"Su pedido es: " + encodeURI(data.load_description) + " Para entregar en: " + data.delivery_zone}`} target="_blank">Send Whats</a>
                 </div>
                 <div className="btn btn-success mt-3">
-                    <a className="text-white" href={`whatsapp://send?text=${"Supedidoes:" + encodeURI(data.load_description) + "Para entregaren:" + data.delivery_zone}`} data-action="share/whatsapp/share"
+                    <a className="text-white" href={`whatsapp://send?text=${"Supedidoes: " + encodeURI(data.load_description) + "\n" + "Para entregaren: " + data.delivery_zone}`} data-action="share/whatsapp/share"
                         target="_blank">Send Whats share</a>
                 </div>
             </div>
