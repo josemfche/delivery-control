@@ -1,8 +1,28 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import Router from 'next/router'
 import { auth } from '../../firebase'
 
 function NavHeader() {
+
+    const [userData, setUserData] = useState(null)
+
+    useEffect(() => {
+        auth.onAuthStateChanged(function (user) {
+            if (user) {
+                console.log("User signed Header", user)
+                setUserData(user)
+
+            } else {
+                console.log("Not user signed in")
+                setUserData(null)
+                Router.push("/login")
+            }
+        })
+
+    }, [])
+
+
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid">
@@ -26,18 +46,12 @@ function NavHeader() {
                     </ul>
                     <ul className="navbar-nav navbar-inverse">
                         {
-                            auth.currentUser ?
+                            userData ?
                                 <li className="nav-item me-3 d-flex pull-right">
-                                    <span className="nav-link active" aria-current="page">Hello {auth.currentUser.displayName}</span>
+                                    <span className="nav-link active" aria-current="page">Hello {userData.displayName}</span>
                                     <button className="btn btn-danger" onClick={() => auth.signOut()}>Sign Out</button>
 
-                                </li>
-                                :
-                                <li className="nav-item">
-                                    <Link href="/login" >
-                                        <a className="nav-link active" aria-current="page">Login</a>
-                                    </Link >
-                                </li>
+                                </li> : <></>
                         }
                     </ul>
                 </div>

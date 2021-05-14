@@ -6,6 +6,7 @@ function AddDelivery(props) {
 
     const { userData } = useContext(userContext)
 
+
     interface IDeliveryObject {
         delivery_man: string,
         date: Date | null,
@@ -67,11 +68,6 @@ function AddDelivery(props) {
 
     }
 
-    const sendWhatsappMsj = () => {
-
-
-
-    }
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -122,8 +118,8 @@ function AddDelivery(props) {
                                 <h4 className="m-3">Datos del cliente</h4>
                                 <div className="card-body">
                                     <label className="form-label" htmlFor="">Tipo de cliente</label>
-                                    <select onChange={onChange} name="type" className="form-select" aria-label="Default select example">
-                                        <option selected value="Persona">Persona</option>
+                                    <select defaultValue={"Persona"} onChange={onChange} name="type" className="form-select" aria-label="Default select example">
+                                        <option value="Persona">Persona</option>
                                         <option value="Empresa">Empresa</option>
                                     </select>
                                 </div>
@@ -141,7 +137,7 @@ function AddDelivery(props) {
                                 </div>
                                 <div className="form-group m-3">
                                     <label className="form-label" htmlFor="">Método de pago</label>
-                                    <select onChange={onChange} name="payment_method" className="form-select" aria-label="Default select example">
+                                    <select defaultValue={"Cash"} onChange={onChange} name="payment_method" className="form-select" aria-label="Default select example">
                                         <option value="Cash">Cash</option>
                                         <option value="Zelle">Zelle</option>
                                         <option value="Pago Móvil">Pago Móvil</option>
@@ -151,14 +147,17 @@ function AddDelivery(props) {
                             </div>
                         </div>
                     </div>
-                    <button className="btn btn-primary" type="submit" >Add Delivery</button>
+                    <div className="d-flex justify-content-end" >
+                        <button className="btn btn-primary" type="submit" >Add Delivery</button>
+                    </div >
                 </form>
+
                 <div className="btn btn-success mt-3">
-                    <a className="text-white" href={`https://wa.me/${data.client.tlf}?text=${"Su pedido es: " + encodeURI(data.load_description) + " Para entregar en: " + data.delivery_zone}`} target="_blank">Send Whats</a>
+                    <a className="text-white text-decoration-none" href={`https://wa.me/${data.client.tlf}?text=${"Su pedido es: " + encodeURI(data.load_description) + " Para entregar en: " + data.delivery_zone}`} target="_blank">Enviar <i className="bi bi-whatsapp" /></a>
                 </div>
                 <div className="btn btn-success mt-3">
-                    <a className="text-white" href={`whatsapp://send?text=${"Supedido es: " + encodeURI(data.load_description) + "%0a" + "Para entregaren: " + encodeURI(data.delivery_zone) + "%0a" + "Método de pago: " + encodeURI(data.payment_method)}`} data-action="share/whatsapp/share"
-                        target="_blank">Send Whats share</a>
+                    <a className="text-white text-decoration-none" href={`whatsapp://send?text=${"Supedido es: " + encodeURI(data.load_description) + "%0a" + "Para entregaren: " + encodeURI(data.delivery_zone) + "%0a" + "Método de pago: " + encodeURI(data.payment_method)}`} data-action="share/whatsapp/share"
+                        target="_blank">Compartir <i className="bi bi-whatsapp" /></a>
                 </div>
             </div>
         </div>
