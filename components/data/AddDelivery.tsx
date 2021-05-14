@@ -96,7 +96,7 @@ function AddDelivery(props) {
         <div className="" >
             <div className="container">
                 <form onSubmit={onSubmit} className="row">
-                    <div className="col-12 col-sm-6" >
+                    <div className="col-12 col-sm-6 mb-3" >
                         <div className="card">
                             <h4 className="m-3">Datos del delivery</h4>
                             <div className="card-body">

@@ -7,9 +7,9 @@ export default function dashboard() {
     return (
         <PrivateRoute>
             <>
-                <h1>Dashboard</h1>
+                <h1 className="text-center">Dashboard</h1>
                 <AddDelivery />
             </>
-        </PrivateRoute>
+        </PrivateRoute >
     )
 }
