@@ -8,6 +8,7 @@ function AddDelivery(props) {
 
 
     interface IDeliveryObject {
+        schema_version: string,
         delivery_man: string,
         date: Date | null,
         hour_completed: Date | null,
@@ -27,6 +28,7 @@ function AddDelivery(props) {
     }
 
     const initialState: IDeliveryObject = {
+        schema_version: "v0.1",
         delivery_man: "",
         date: null,
         hour_completed: null,
