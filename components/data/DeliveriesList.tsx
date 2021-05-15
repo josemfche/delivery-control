@@ -10,7 +10,7 @@ function DeliveriesList() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await db.collection("deliveries").where("owner", "==", "Yaneth").get()
+        const response = await db.collection("deliveries").where("owner", "==", "Yaneth").limit(10).get()
 
         setData(response.docs)
 
@@ -29,13 +29,13 @@ function DeliveriesList() {
 
   return (
     <div className="container">
-      <div className="row">
-        <div>
-          <Link href="/add-delivery" >
-            <a className="btn btn-primary ">Registrar delivery</a>
-          </Link>
-        </div>
-        <table className="table">
+      <div className="my-2">
+        <Link href="/add-delivery" >
+          <a className="btn btn-primary ">Registrar delivery</a>
+        </Link>
+      </div>
+      <div className="row table-responsive">
+        <table className="table table-striped table-hover table-borderless">
           <thead className="table-dark">
             <tr>
               <th scope="col">ID</th>
@@ -45,7 +45,7 @@ function DeliveriesList() {
               <th scope="col">Completado</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="">
             {dataD.map(item => {
               let itemData = item.data()
               return (
