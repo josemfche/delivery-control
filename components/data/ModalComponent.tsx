@@ -38,10 +38,10 @@ function ModalComponent(props) {
                 <p>tlf: {props.data.client.tlf}</p>
             </Modal.Body>
             <Modal.Footer>
-                <div className="btn btn-success">
+                <div className="btn btn-success d-none d-md-block">
                     <a className="text-white text-decoration-none" href={`https://wa.me/${props.data.client.tlf}?text=${"Su pedido es: " + encodeURI(props.data.load_description) + " Para entregar en: " + props.data.delivery_zone}`} target="_blank">Enviar <i className="bi bi-whatsapp" /></a>
                 </div>
-                <div className="btn btn-success">
+                <div className="btn btn-success d-block d-md-none">
                     <a className="text-white text-decoration-none" href={`whatsapp://send?text=${"Supedido es: " + encodeURI(props.data.load_description) + "%0a" + "Para entregaren: " + encodeURI(props.data.delivery_zone) + "%0a" + "Método de pago: " + encodeURI(props.data.payment_method)}`} data-action="share/whatsapp/share"
                         target="_blank">Compartir <i className="bi bi-whatsapp" /></a>
                 </div>
