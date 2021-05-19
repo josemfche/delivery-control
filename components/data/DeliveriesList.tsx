@@ -31,7 +31,12 @@ function DeliveriesList() {
     <div className="container">
       <div className="my-2">
         <Link href="/add-delivery" >
-          <a className="btn btn-primary ">Registrar delivery</a>
+          <a className="btn btn-primary rounded-circle" style={{
+            position: "fixed",
+            right: "15px",
+            bottom: "15px",
+            textAlign: "center"
+          }}><i className="bi bi-plus" style={{ fontSize: "2rem", color: "#ffffff" }}></i></a>
         </Link>
       </div>
       <div className="row table-responsive">
@@ -50,7 +55,7 @@ function DeliveriesList() {
               let itemData = item.data()
               return (
                 <tr>
-                  <th scope="col">{item.id}</th>
+                  <th className="text-wrap" scope="col">{item.id}</th>
                   <th scope="col">{itemData.owner}</th>
                   <th scope="col">{itemData.load_description}</th>
                   <th scope="col">{itemData.client.name}</th>

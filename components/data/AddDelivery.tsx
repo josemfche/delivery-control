@@ -1,10 +1,15 @@
 import { db, auth } from '../../firebase'
 import { useContext, useEffect, useState } from 'react'
+import Button from 'react-bootstrap/Button';
+import ModalComponent from '../data/ModalComponent'
 import { userContext } from '../../context/createContext/UserContext'
 
 function AddDelivery(props) {
 
     const { userData } = useContext(userContext)
+
+    //Modal control
+    const [modalShow, setModalShow] = useState(false);
 
 
     interface IDeliveryObject {
@@ -87,8 +92,10 @@ function AddDelivery(props) {
                 console.log(doc.id, " => ", doc.data());
             });
         })
-    }
 
+        setModalShow(true)
+
+    }
 
     return (
         <div className="" >
@@ -100,15 +107,15 @@ function AddDelivery(props) {
                             <div className="card-body">
                                 <div className="form-group mb-3">
                                     <label className="form-label" htmlFor="">Precio del delivery $</label>
-                                    <input className="form-control" name="price" onChange={onChange} type="number" />
+                                    <input className="form-control" value={data.price} name="price" onChange={onChange} type="number" />
                                 </div>
                                 <div className="form-group mb-3">
                                     <label className="form-label" htmlFor="">Zona de entrega</label>
-                                    <input className="form-control" name="delivery_zone" onChange={onChange} type="text" />
+                                    <input className="form-control" value={data.delivery_zone} name="delivery_zone" onChange={onChange} type="text" />
                                 </div>
                                 <div className="form-group mb-3">
                                     <label className="form-label" htmlFor="">Descripción de la carga</label>
-                                    <input className="form-control" name="load_description" onChange={onChange} type="text" />
+                                    <input className="form-control" name="load_description" value={data.load_description} onChange={onChange} type="text" />
                                 </div>
 
                             </div>
@@ -118,51 +125,50 @@ function AddDelivery(props) {
                         <div className="form-group mb-3">
                             <div className="card">
                                 <h4 className="m-3">Datos del cliente</h4>
-                                <div className="card-body">
-                                    <label className="form-label" htmlFor="">Tipo de cliente</label>
-                                    <select defaultValue={"Persona"} onChange={onChange} name="type" className="form-select" aria-label="Default select example">
-                                        <option value="Persona">Persona</option>
-                                        <option value="Empresa">Empresa</option>
-                                    </select>
+                                <div className="form-group m-2 row">
+                                    <div className="col-6"><label className="form-label" htmlFor="">Tipo de cliente</label>
+                                        <select defaultValue={"Persona"} onChange={onChange} value={data.client.type} name="type" className="form-select" aria-label="Default select example">
+                                            <option value="Persona">Persona</option>
+                                            <option value="Empresa">Empresa</option>
+                                        </select>
+                                    </div>
+                                    <div className="col-6">
+                                        <label className="form-label" htmlFor="">Método de pago</label>
+                                        <select defaultValue={"Cash"} onChange={onChange} value={data.payment_method} name="payment_method" className="form-select" aria-label="Default select example">
+                                            <option value="Cash">Cash</option>
+                                            <option value="Zelle">Zelle</option>
+                                            <option value="Pago Móvil">Pago Móvil</option>
+                                            <option value="Transferencia">Transferencia</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div className="form-group m-3">
                                     <label className="form-label" htmlFor="">Nombre</label>
-                                    <input className="form-control" name="name" onChange={onChange} type="text" />
+                                    <input className="form-control" name="name" value={data.client.name} onChange={onChange} type="text" />
                                 </div>
                                 <div className="form-group m-3">
                                     <label className="form-label" htmlFor="">N° de teléfono</label>
-                                    <input className="form-control" name="tlf" onChange={onChange} type="tel" />
+                                    <input className="form-control" name="tlf" value={data.client.tlf} onChange={onChange} type="tel" />
                                 </div>
                                 <div className="form-group m-3">
                                     <label className="form-label" htmlFor="">Email</label>
-                                    <input className="form-control" name="email" type="email" onChange={onChange} />
-                                </div>
-                                <div className="form-group m-3">
-                                    <label className="form-label" htmlFor="">Método de pago</label>
-                                    <select defaultValue={"Cash"} onChange={onChange} name="payment_method" className="form-select" aria-label="Default select example">
-                                        <option value="Cash">Cash</option>
-                                        <option value="Zelle">Zelle</option>
-                                        <option value="Pago Móvil">Pago Móvil</option>
-                                        <option value="Transferencia">Transferencia</option>
-                                    </select>
+                                    <input className="form-control" name="email" value={data.client.email} type="email" onChange={onChange} />
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="d-flex justify-content-end" >
+                    <div className="d-flex justify-content-end">
                         <button className="btn btn-primary" type="submit" >Add Delivery</button>
                     </div >
                 </form>
-
-                <div className="btn btn-success mt-3">
-                    <a className="text-white text-decoration-none" href={`https://wa.me/${data.client.tlf}?text=${"Su pedido es: " + encodeURI(data.load_description) + " Para entregar en: " + data.delivery_zone}`} target="_blank">Enviar <i className="bi bi-whatsapp" /></a>
-                </div>
-                <div className="btn btn-success mt-3">
-                    <a className="text-white text-decoration-none" href={`whatsapp://send?text=${"Supedido es: " + encodeURI(data.load_description) + "%0a" + "Para entregaren: " + encodeURI(data.delivery_zone) + "%0a" + "Método de pago: " + encodeURI(data.payment_method)}`} data-action="share/whatsapp/share"
-                        target="_blank">Compartir <i className="bi bi-whatsapp" /></a>
-                </div>
+                <ModalComponent
+                    show={modalShow}
+                    data={data}
+                    onHide={() => setModalShow(false)}
+                    clearData={() => setData(initialState)}
+                />
             </div>
-        </div>
+        </div >
     )
 }
 
