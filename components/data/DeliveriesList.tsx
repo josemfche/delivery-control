@@ -36,10 +36,10 @@ function DeliveriesList() {
             right: "15px",
             bottom: "15px",
             textAlign: "center"
-          }}><i className="bi bi-plus" style={{ fontSize: "2rem", color: "#ffffff" }}></i></a>
+          }}><i className="bi bi-plus" style={{ fontSize: "1.5rem", color: "#ffffff" }}></i></a>
         </Link>
       </div>
-      <div className="row table-responsive">
+      <div className="row table-responsive shadow mb-5 bg-body rounded mx-1">
         <table className="table table-striped table-hover table-borderless">
           <thead className="table-dark">
             <tr>
