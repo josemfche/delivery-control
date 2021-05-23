@@ -3,11 +3,15 @@ import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Button from 'react-bootstrap/Button'
-import { useState } from 'react'
+import { useState, useReducer, useContext } from 'react'
+import { userContext } from '../../context/createContext/UserContext'
+import { db, auth } from '../../firebase'
+import { GET_DELIVERIES } from '../../context/types'
 
 function SearchDelivery() {
 
     const [data, setData] = useState(null)
+    const { userDispatch } = useContext(userContext)
 
     const onChange = (e) => {
         if (
@@ -24,14 +28,61 @@ function SearchDelivery() {
 
     }
 
+    const onSubmit = (e) => {
+        e.preventDefault()
+
+        console.log(auth.currentUser)
+
+        /*     COMPLETADOS    db.collection("deliveries")
+                    .where("completed", "==", true)
+                    .where("owner", "==", auth.currentUser.displayName)
+                    .limit(data.limit)
+                    .get()
+                    .then((querySnapshot) => {
+                        userDispatch({
+                            type: GET_DELIVERIES,
+                            payload: querySnapshot.docs
+                        })
+                    })
+                    .catch(error => console.log(error)) */
+
+        db.collection("deliveries").doc(data.id)
+            .get()
+            .then((doc) => {
+                if (doc.exists) {
+                    console.log("Document data:", doc.data());
+                } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            }).catch((error) => {
+                console.log("Error getting document:", error);
+            })
+
+
+        /*       TODOS  db.collection("deliveries").limit(20).get()
+                    .then((querySnapshot) => {
+                        userDispatch({
+                            type: GET_DELIVERIES,
+                            payload: querySnapshot.docs
+                        })
+                    })
+                    .catch(error => console.log(error)) */
+
+    }
+
     return (
         <>
             <Container>
-                <Form className="my-5 shadow p-3 mb-5 bg-body rounded">
+                <Form onSubmit={onSubmit} className="my-5 shadow p-3 mb-5 bg-body rounded">
                     <Row>
                         <Form.Group as={Col} controlId="formGridEmail">
                             <Form.Label>ID</Form.Label>
-                            <Form.Control onChange={onChange} name="id" type="email" placeholder="Enter email" />
+                            <Form.Control onChange={onChange} name="id" type="text" placeholder="ID del delivery" />
+                        </Form.Group>
+                        <Form.Group as={Col} controlId="formGridEmail">
+                            <Form.Label>Limite de resultados</Form.Label>
+                            <Form.Control onChange={onChange} name="limit" type="number" placeholder="Introduzca cantidad límite" />
                         </Form.Group>
                         <Form.Group as={Col} controlId="formGridEmail">
                             <Form.Label>Nombre del cliente</Form.Label>
@@ -57,7 +108,7 @@ function SearchDelivery() {
                     </Row>
                     <Row className="my-2 d-flex flex-end">
                         <Form.Group as={Col} controlId="formGridEmail">
-                            <Button variant="primary" >Buscar</Button>
+                            <Button type="submit" variant="primary" >Buscar</Button>
                         </Form.Group>
                     </Row>
                 </Form>

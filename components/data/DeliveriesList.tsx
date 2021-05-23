@@ -1,18 +1,24 @@
 import { db } from '../../firebase'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import { userContext } from '../../context/createContext/UserContext'
+import { GET_DELIVERIES } from '../../context/types'
 import Link from 'next/link'
 
 function DeliveriesList() {
 
   const [dataD, setData] = useState([])
+  const { userDispatch, deliveries } = useContext(userContext)
 
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await db.collection("deliveries").where("owner", "==", "Yaneth").limit(10).get()
+        const response = await db.collection("deliveries").where("owner", "==", "Yaneth").limit(20).get()
 
-        setData(response.docs)
+        userDispatch({
+          type: GET_DELIVERIES,
+          payload: response.docs
+        })
 
       } catch (error) {
 
@@ -51,7 +57,7 @@ function DeliveriesList() {
             </tr>
           </thead>
           <tbody className="">
-            {dataD.map(item => {
+            {deliveries.map(item => {
               let itemData = item.data()
               return (
                 <tr>

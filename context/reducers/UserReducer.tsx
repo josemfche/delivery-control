@@ -1,6 +1,7 @@
 import {
     SET_USER,
-    UNSET_USER
+    UNSET_USER,
+    GET_DELIVERIES
 } from '../types'
 
 export default function userReducer(state, action) {
@@ -11,6 +12,9 @@ export default function userReducer(state, action) {
         case UNSET_USER:
             console.log("UNSET")
             return { ...state, user: null }
+        case GET_DELIVERIES:
+            console.log("GET_DELIVERIES: ", action.payload)
+            return { ...state, deliveries: action.payload }
         default:
             return state;
     }

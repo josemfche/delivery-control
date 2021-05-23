@@ -6,16 +6,19 @@ import userReducer from '../reducers/UserReducer'
 function UserProvider(props) {
 
     const initialState = {
-        user: null
+        user: null,
+        deliveries: []
     }
 
     const [userState, userDispatch] = useReducer(userReducer, initialState)
 
 
+
     return (
         <userContext.Provider value={{
             userData: userState.user,
-            userDispatch
+            userDispatch,
+            deliveries: userState.deliveries
         }}>
             {props.children}
         </userContext.Provider>
