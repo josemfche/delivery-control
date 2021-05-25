@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from 'react'
 import { userContext } from '../../context/createContext/UserContext'
 import { GET_DELIVERIES } from '../../context/types'
 import Link from 'next/link'
+import { KeyObject } from 'tls'
 
 function DeliveriesList() {
 
@@ -14,10 +15,11 @@ function DeliveriesList() {
     const fetchData = async () => {
       try {
         const response = await db.collection("deliveries").where("owner", "==", "Yaneth").limit(20).get()
+        const dataFormatted = response.docs.map(item => item.data())
 
         userDispatch({
           type: GET_DELIVERIES,
-          payload: response.docs
+          payload: dataFormatted
         })
 
       } catch (error) {
@@ -57,15 +59,14 @@ function DeliveriesList() {
             </tr>
           </thead>
           <tbody className="">
-            {deliveries.map(item => {
-              let itemData = item.data()
+            {deliveries.map((item) => {
               return (
                 <tr>
                   <th className="text-wrap" scope="col">{item.id}</th>
-                  <th scope="col">{itemData.owner}</th>
-                  <th scope="col">{itemData.load_description}</th>
-                  <th scope="col">{itemData.client.name}</th>
-                  <th scope="col">{itemData.completed ? "Completado" : "No completado"}</th>
+                  <th scope="col">{item.owner}</th>
+                  <th scope="col">{item.load_description}</th>
+                  <th scope="col">{item.client.name}</th>
+                  <th scope="col">{item.completed ? "Completado" : "No completado"}</th>
                 </tr>
               )
             })

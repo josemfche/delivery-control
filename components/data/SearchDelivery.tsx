@@ -3,7 +3,7 @@ import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Button from 'react-bootstrap/Button'
-import { useState, useReducer, useContext } from 'react'
+import { useState, useContext } from 'react'
 import { userContext } from '../../context/createContext/UserContext'
 import { db, auth } from '../../firebase'
 import { GET_DELIVERIES } from '../../context/types'
@@ -24,51 +24,64 @@ function SearchDelivery() {
         } else {
             setData({ ...data, [e.target.name]: e.target.value })
         }
-        console.log(data)
 
+        console.log(data.limit)
     }
 
     const onSubmit = (e) => {
         e.preventDefault()
 
-        console.log(auth.currentUser)
 
-        /*     COMPLETADOS    db.collection("deliveries")
-                    .where("completed", "==", true)
-                    .where("owner", "==", auth.currentUser.displayName)
-                    .limit(data.limit)
-                    .get()
-                    .then((querySnapshot) => {
-                        userDispatch({
-                            type: GET_DELIVERIES,
-                            payload: querySnapshot.docs
-                        })
+        const completados = () => {
+            db.collection("deliveries")
+                .where("completed", "==", true)
+                .where("owner", "==", auth.currentUser.displayName)
+                .limit(data.limit)
+                .get()
+                .then((querySnapshot) => {
+                    const dataFormatted = querySnapshot.docs.map(items => items.data())
+                    console.log("In place: ", dataFormatted)
+                    userDispatch({
+                        type: GET_DELIVERIES,
+                        payload: dataFormatted
                     })
-                    .catch(error => console.log(error)) */
+                })
+                .catch(error => console.log(error))
+        }
 
-        db.collection("deliveries").doc(data.id)
-            .get()
-            .then((doc) => {
-                if (doc.exists) {
-                    console.log("Document data:", doc.data());
-                } else {
-                    // doc.data() will be undefined in this case
-                    console.log("No such document!");
-                }
-            }).catch((error) => {
-                console.log("Error getting document:", error);
-            })
+        const deliveryById = () => {
+            db.collection("deliveries").doc(data.id)
+                .get()
+                .then((doc) => {
+                    if (doc.exists) {
+                        console.log("Document data:", doc.data());
+                        const date = doc.data()
+                        console.log(date.date.valueOf())
+                    } else {
+                        // doc.data() will be undefined in this case
+                        console.log("No such document!");
+                    }
+                }).catch((error) => {
+                    console.log("Error getting document:", error);
+                })
+
+        }
 
 
-        /*       TODOS  db.collection("deliveries").limit(20).get()
-                    .then((querySnapshot) => {
-                        userDispatch({
-                            type: GET_DELIVERIES,
-                            payload: querySnapshot.docs
-                        })
+        const allDeliveries = () => {
+            db.collection("deliveries").limit(20).get()
+                .then((querySnapshot) => {
+                    const dataFormatted = querySnapshot.docs.map(item => item.data())
+                    userDispatch({
+                        type: GET_DELIVERIES,
+                        payload: dataFormatted
                     })
-                    .catch(error => console.log(error)) */
+                })
+                .catch(error => console.log(error))
 
+        }
+
+        allDeliveries()
     }
 
     return (
