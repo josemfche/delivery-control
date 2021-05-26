@@ -78,8 +78,9 @@ function AddDelivery(props) {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log("Presionaste submit")
-        setCurrentDateOnState()
+        let dateS = new Date(Date.now())
+        setData({ ...data, "date": dateS })
+        console.log(data.date)
 
 
         db.collection("deliveries").add(data)

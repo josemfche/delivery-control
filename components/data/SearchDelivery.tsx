@@ -6,12 +6,38 @@ import Button from 'react-bootstrap/Button'
 import { useState, useContext } from 'react'
 import { userContext } from '../../context/createContext/UserContext'
 import { db, auth } from '../../firebase'
-import { GET_DELIVERIES } from '../../context/types'
+import { GET_DELIVERIES, GET_SINGLE_DELIVERY } from '../../context/types'
 
 function SearchDelivery() {
 
-    const [data, setData] = useState(null)
+    interface IDeliveryObject {
+        id: string,
+        dateFrom: Date,
+        dateTo: Date,
+        limit: number,
+        typeS: string,
+        client?: {
+            type?: string,
+            tlf?: string,
+            email?: string
+        }
+
+    }
+
+    const initialState: IDeliveryObject = {
+        id: "",
+        dateFrom: new Date(Date.now()),
+        dateTo: new Date(Date.now()),
+        limit: 1,
+        typeS: "allDeliveries",
+        client: {}
+    }
+
+
+
+    const [data, setData] = useState(initialState)
     const { userDispatch } = useContext(userContext)
+
 
     const onChange = (e) => {
         if (
@@ -25,7 +51,7 @@ function SearchDelivery() {
             setData({ ...data, [e.target.name]: e.target.value })
         }
 
-        console.log(data.limit)
+        console.log(data)
     }
 
     const onSubmit = (e) => {
@@ -39,8 +65,9 @@ function SearchDelivery() {
                 .limit(data.limit)
                 .get()
                 .then((querySnapshot) => {
-                    const dataFormatted = querySnapshot.docs.map(items => items.data())
-                    console.log("In place: ", dataFormatted)
+                    const dataFormatted = querySnapshot.docs.map(item => {
+                        return { id: item.id, data: item.data() }
+                    })
                     userDispatch({
                         type: GET_DELIVERIES,
                         payload: dataFormatted
@@ -56,7 +83,14 @@ function SearchDelivery() {
                     if (doc.exists) {
                         console.log("Document data:", doc.data());
                         const date = doc.data()
-                        console.log(date.date.valueOf())
+                        /* console.log(date.date.valueOf()) */
+                        const dataFormatted = [{ id: doc.id, data: { ...doc.data() } }]
+                        console.log(doc.data().date.valueOf())
+                        console.log(doc.data().date.toDate())
+                        userDispatch({
+                            type: GET_SINGLE_DELIVERY,
+                            payload: dataFormatted
+                        })
                     } else {
                         // doc.data() will be undefined in this case
                         console.log("No such document!");
@@ -71,7 +105,9 @@ function SearchDelivery() {
         const allDeliveries = () => {
             db.collection("deliveries").limit(20).get()
                 .then((querySnapshot) => {
-                    const dataFormatted = querySnapshot.docs.map(item => item.data())
+                    const dataFormatted = querySnapshot.docs.map(item => {
+                        return { id: item.id, data: item.data() }
+                    })
                     userDispatch({
                         type: GET_DELIVERIES,
                         payload: dataFormatted
@@ -81,25 +117,28 @@ function SearchDelivery() {
 
         }
 
-        allDeliveries()
+        const searchToExecute = (type) => {
+            const searchs = {
+                allDeliveries: () => allDeliveries(),
+                deliveryById: () => deliveryById(),
+                completados: () => completados()
+            }
+
+            return searchs[type]()
+        }
+
+        searchToExecute(data.typeS)
     }
 
     return (
         <>
             <Container>
                 <Form onSubmit={onSubmit} className="my-5 shadow p-3 mb-5 bg-body rounded">
+                    <h4 className="my-2">Búsqueda</h4>
                     <Row>
                         <Form.Group as={Col} controlId="formGridEmail">
                             <Form.Label>ID</Form.Label>
                             <Form.Control onChange={onChange} name="id" type="text" placeholder="ID del delivery" />
-                        </Form.Group>
-                        <Form.Group as={Col} controlId="formGridEmail">
-                            <Form.Label>Limite de resultados</Form.Label>
-                            <Form.Control onChange={onChange} name="limit" type="number" placeholder="Introduzca cantidad límite" />
-                        </Form.Group>
-                        <Form.Group as={Col} controlId="formGridEmail">
-                            <Form.Label>Nombre del cliente</Form.Label>
-                            <Form.Control onChange={onChange} name="email" type="email" placeholder="Enter email" />
                         </Form.Group>
                         <Form.Group as={Col} controlId="formGridEmail">
                             <Form.Label>Fecha desde</Form.Label>
@@ -109,15 +148,18 @@ function SearchDelivery() {
                             <Form.Label>Fecha hasta</Form.Label>
                             <Form.Control onChange={onChange} name="dateTo" type="date" placeholder="Enter date" />
                         </Form.Group>
-                        {/*                         <Form.Group as={Col} controlId="exampleForm.SelectCustom">
-                            <Form.Label>Custom select</Form.Label>
-                            <select className="form-select" aria-label="Default select example">
-                                <option selected>Open this select menu</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                        <Form.Group as={Col} controlId="formGridEmail">
+                            <Form.Label>Resultados a mostrar</Form.Label>
+                            <Form.Control onChange={onChange} value={data.limit} name="limit" min={1} type="number" placeholder="Introduzca cantidad límite" />
+                        </Form.Group>
+                        <Form.Group as={Col} controlId="exampleForm.SelectCustom">
+                            <Form.Label>Tipo de búsqueda</Form.Label>
+                            <select onChange={onChange} name="typeS" className="form-select" aria-label="Default select example">
+                                <option selected value="allDeliveries">Todos los deliveries</option>
+                                <option value="deliveryById">ID</option>
+                                <option value="completados">Completados</option>
                             </select>
-                        </Form.Group> */}
+                        </Form.Group>
                     </Row>
                     <Row className="my-2 d-flex flex-end">
                         <Form.Group as={Col} controlId="formGridEmail">

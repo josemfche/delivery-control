@@ -27,7 +27,7 @@ function ModalComponent(props) {
                 <h4>Los datos del delivery son: </h4>
                 <br />
                 <label><strong>Fecha: </strong></label>
-                <p>La fecha de hoy</p>
+                <p>{props.data.date ? props.data.date.toString() : ""}</p>
                 <label><strong>Zona de entrega: </strong></label>
                 <p>{props.data.delivery_zone}</p>
                 <label><strong>Metódo de pago: </strong></label>

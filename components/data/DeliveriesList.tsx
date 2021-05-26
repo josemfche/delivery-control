@@ -11,27 +11,27 @@ function DeliveriesList() {
   const { userDispatch, deliveries } = useContext(userContext)
 
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await db.collection("deliveries").where("owner", "==", "Yaneth").limit(20).get()
-        const dataFormatted = response.docs.map(item => item.data())
-
-        userDispatch({
-          type: GET_DELIVERIES,
-          payload: dataFormatted
-        })
-
-      } catch (error) {
-
-        console.error("Error getting documents: ", error);
-
+  /*   useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await db.collection("deliveries").where("owner", "==", "Yaneth").limit(20).get()
+          const dataFormatted = response.docs.map(item => item.data())
+  
+          userDispatch({
+            type: GET_DELIVERIES,
+            payload: dataFormatted
+          })
+  
+        } catch (error) {
+  
+          console.error("Error getting documents: ", error);
+  
+        }
       }
-    }
-
-    fetchData()
-
-  }, [])
+  
+      fetchData()
+  
+    }, []) */
 
 
 
@@ -56,20 +56,25 @@ function DeliveriesList() {
               <th scope="col">Descripción</th>
               <th scope="col">Nombre del cliente</th>
               <th scope="col">Completado</th>
+              <th scope="col">Fecha</th>
             </tr>
           </thead>
           <tbody className="">
-            {deliveries.map((item) => {
-              return (
-                <tr>
-                  <th className="text-wrap" scope="col">{item.id}</th>
-                  <th scope="col">{item.owner}</th>
-                  <th scope="col">{item.load_description}</th>
-                  <th scope="col">{item.client.name}</th>
-                  <th scope="col">{item.completed ? "Completado" : "No completado"}</th>
-                </tr>
-              )
-            })
+            {
+              deliveries.map((item) => {
+                let date = item.data.date ? item.data.date.toDate() : ""
+                const dateFormatted = item.data.date ? `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}` : ""
+                return (
+                  <tr key={item.id}>
+                    <th scope="col" className="text-wrap" >{item.id}</th>
+                    <th scope="col">{item.data.owner}</th>
+                    <th scope="col">{item.data.load_description}</th>
+                    <th scope="col">{item.data.client.name}</th>
+                    <th scope="col">{item.data.completed ? "Completado" : "No completado"}</th>
+                    <th scope="col">{dateFormatted ? dateFormatted : "No tiene fecha"}</th>
+                  </tr>
+                )
+              })
             }
 
           </tbody>
