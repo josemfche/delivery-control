@@ -63,14 +63,17 @@ function AddDelivery(props) {
         ) {
             setData({ ...data, "client": { ...data.client, [e.target.name]: e.target.value } })
         } else {
-            setData({ ...data, [e.target.name]: e.target.value })
+            setData({ ...data, [e.target.name]: e.target.value, "date": new Date(Date.now()) })
         }
-        console.log(data)
+
+
+        console.log(data.date)
 
     }
 
     const setCurrentDateOnState = () => {
         let dateS = new Date(Date.now())
+        console.log(dateS)
         setData({ ...data, "date": dateS })
 
     }
@@ -78,23 +81,17 @@ function AddDelivery(props) {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        let dateS = new Date(Date.now())
-        setData({ ...data, "date": dateS })
-        console.log(data.date)
 
+        setCurrentDateOnState()
 
         db.collection("deliveries").add(data)
-            .then((docRef) => console.log("Document successfully written! ", docRef))
+            .then((docRef) => {
+                console.log("Document successfully written! ", docRef.id)
+                setModalShow(true)
+            })
             .catch(error => console.log(error))
 
-        db.collection("deliveries").where("owner", "==", "Yaneth").get().then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                // doc.data() is never undefined for query doc snapshots
-                console.log(doc.id, " => ", doc.data());
-            });
-        })
-
-        setModalShow(true)
+        console.log("Fecha luego de guardar el documento: " + data.date)
 
     }
 

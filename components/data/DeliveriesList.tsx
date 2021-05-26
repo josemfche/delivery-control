@@ -43,7 +43,9 @@ function DeliveriesList() {
             position: "fixed",
             right: "15px",
             bottom: "15px",
-            textAlign: "center"
+            textAlign: "center",
+            boxShadow: "0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%), 0 3px 5px -1px rgb(0 0 0 / 20%)",
+            cursor: "pointer"
           }}><i className="bi bi-plus" style={{ fontSize: "1.5rem", color: "#ffffff" }}></i></a>
         </Link>
       </div>

@@ -82,8 +82,6 @@ function SearchDelivery() {
                 .then((doc) => {
                     if (doc.exists) {
                         console.log("Document data:", doc.data());
-                        const date = doc.data()
-                        /* console.log(date.date.valueOf()) */
                         const dataFormatted = [{ id: doc.id, data: { ...doc.data() } }]
                         console.log(doc.data().date.valueOf())
                         console.log(doc.data().date.toDate())
