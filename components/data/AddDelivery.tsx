@@ -163,7 +163,7 @@ function AddDelivery(props) {
                     show={modalShow}
                     data={data}
                     onHide={() => setModalShow(false)}
-                    clearData={() => setData(initialState)}
+                    cleardata={() => setData(initialState)}
                 />
             </div>
         </div >

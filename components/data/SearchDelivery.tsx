@@ -103,6 +103,7 @@ function SearchDelivery() {
         const allDeliveries = () => {
             db.collection("deliveries").limit(20).get()
                 .then((querySnapshot) => {
+                    console.log("All deliveries")
                     const dataFormatted = querySnapshot.docs.map(item => {
                         return { id: item.id, data: item.data() }
                     })
@@ -134,35 +135,36 @@ function SearchDelivery() {
                 <Form onSubmit={onSubmit} className="my-5 shadow p-3 mb-5 bg-body rounded">
                     <h4 className="my-2">Búsqueda</h4>
                     <Row>
-                        <Form.Group as={Col} controlId="formGridEmail">
+                        <Form.Group sm={3} xs={12} as={Col} controlId="formGridEmail">
                             <Form.Label>ID</Form.Label>
                             <Form.Control onChange={onChange} name="id" type="text" placeholder="ID del delivery" />
                         </Form.Group>
-                        <Form.Group as={Col} controlId="formGridEmail">
+                        <Form.Group sm={2} xs={12} as={Col} controlId="formGridEmail">
                             <Form.Label>Fecha desde</Form.Label>
                             <Form.Control onChange={onChange} name="dateFrom" type="date" placeholder="Enter date" />
                         </Form.Group>
-                        <Form.Group as={Col} controlId="formGriddate">
+                        <Form.Group sm={2} xs={12} as={Col} controlId="formGriddate">
                             <Form.Label>Fecha hasta</Form.Label>
                             <Form.Control onChange={onChange} name="dateTo" type="date" placeholder="Enter date" />
                         </Form.Group>
-                        <Form.Group as={Col} controlId="formGridEmail">
+                        <Form.Group sm={2} xs={12} as={Col} controlId="formGridEmail">
                             <Form.Label>Resultados a mostrar</Form.Label>
                             <Form.Control onChange={onChange} value={data.limit} name="limit" min={1} type="number" placeholder="Introduzca cantidad límite" />
                         </Form.Group>
-                        <Form.Group as={Col} controlId="exampleForm.SelectCustom">
+                        <Form.Group sm={2} xs={12} as={Col} controlId="exampleForm.SelectCustom">
                             <Form.Label>Tipo de búsqueda</Form.Label>
-                            <select onChange={onChange} name="typeS" className="form-select" aria-label="Default select example">
-                                <option selected value="allDeliveries">Todos los deliveries</option>
+                            <select onChange={onChange} defaultValue="allDeliveries" name="typeS" className="form-select" aria-label="Default select example">
+                                <option value="allDeliveries">Todos los deliveries</option>
                                 <option value="deliveryById">ID</option>
                                 <option value="completados">Completados</option>
                             </select>
                         </Form.Group>
-                    </Row>
-                    <Row className="my-2 d-flex flex-end">
-                        <Form.Group as={Col} controlId="formGridEmail">
+                        <Form.Group className={"d-flex align-items-end justify-content-center mt-3 col-sm-1 col-12"} controlId="formGridEmail">
                             <Button type="submit" variant="primary" >Buscar</Button>
                         </Form.Group>
+                    </Row>
+                    <Row>
+
                     </Row>
                 </Form>
             </Container>

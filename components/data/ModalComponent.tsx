@@ -6,7 +6,7 @@ function ModalComponent(props) {
 
     const onClose = () => {
         props.onHide();
-        props.clearData();
+        props.cleardata();
 
     }
 
@@ -18,7 +18,7 @@ function ModalComponent(props) {
             aria-labelledby="contained-modal-title-vcenter"
             centered
         >
-            <Modal.Header closeButton>
+            <Modal.Header>
                 <Modal.Title id="contained-modal-title-vcenter">
                     Solicitud Procesada!
                 </Modal.Title>

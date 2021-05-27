@@ -10,6 +10,17 @@ function DeliveriesList() {
   const [dataD, setData] = useState([])
   const { userDispatch, deliveries } = useContext(userContext)
 
+  function formatAMPM(date) {
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
+    return strTime;
+  }
+
 
   /*   useEffect(() => {
       const fetchData = async () => {
@@ -59,13 +70,14 @@ function DeliveriesList() {
               <th scope="col">Nombre del cliente</th>
               <th scope="col">Completado</th>
               <th scope="col">Fecha</th>
+              <th scope="col">Hora</th>
             </tr>
           </thead>
           <tbody className="">
             {
               deliveries.map((item) => {
                 let date = item.data.date ? item.data.date.toDate() : ""
-                const dateFormatted = item.data.date ? `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}` : ""
+                const dateFormatted = item.data.date ? `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}` : ""
                 return (
                   <tr key={item.id}>
                     <th scope="col" className="text-wrap" >{item.id}</th>
@@ -74,6 +86,7 @@ function DeliveriesList() {
                     <th scope="col">{item.data.client.name}</th>
                     <th scope="col">{item.data.completed ? "Completado" : "No completado"}</th>
                     <th scope="col">{dateFormatted ? dateFormatted : "No tiene fecha"}</th>
+                    <th scope="col">{formatAMPM(date) ? formatAMPM(date) : "No tiene hora"}</th>
                   </tr>
                 )
               })
