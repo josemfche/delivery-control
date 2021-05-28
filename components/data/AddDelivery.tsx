@@ -105,15 +105,15 @@ function AddDelivery(props) {
                             <div className="card-body">
                                 <div className="form-group mb-3">
                                     <label className="form-label" htmlFor="">Precio del delivery $</label>
-                                    <input className="form-control" value={data.price} name="price" onChange={onChange} type="number" />
+                                    <input className="form-control" value={data.price} name="price" onChange={onChange} type="number" required aria-required={true} />
                                 </div>
                                 <div className="form-group mb-3">
                                     <label className="form-label" htmlFor="">Zona de entrega</label>
-                                    <input className="form-control" value={data.delivery_zone} name="delivery_zone" onChange={onChange} type="text" />
+                                    <input className="form-control" required aria-required={true} value={data.delivery_zone} name="delivery_zone" onChange={onChange} type="text" />
                                 </div>
                                 <div className="form-group mb-3">
                                     <label className="form-label" htmlFor="">Descripción de la carga</label>
-                                    <input className="form-control" name="load_description" value={data.load_description} onChange={onChange} type="text" />
+                                    <input className="form-control" name="load_description" value={data.load_description} onChange={onChange} type="text" required aria-required={true} />
                                 </div>
 
                             </div>
@@ -125,14 +125,14 @@ function AddDelivery(props) {
                                 <h4 className="m-3">Datos del cliente</h4>
                                 <div className="form-group m-2 row">
                                     <div className="col-6"><label className="form-label" htmlFor="">Tipo de cliente</label>
-                                        <select defaultValue={"Persona"} onChange={onChange} value={data.client.type} name="type" className="form-select" aria-label="Default select example">
+                                        <select defaultValue={"Persona"} onChange={onChange} value={data.client.type} name="type" className="form-select" aria-label="Default select example" required aria-required={true}>
                                             <option value="Persona">Persona</option>
                                             <option value="Empresa">Empresa</option>
                                         </select>
                                     </div>
                                     <div className="col-6">
                                         <label className="form-label" htmlFor="">Método de pago</label>
-                                        <select defaultValue={"Cash"} onChange={onChange} value={data.payment_method} name="payment_method" className="form-select" aria-label="Default select example">
+                                        <select defaultValue={"Cash"} onChange={onChange} value={data.payment_method} name="payment_method" className="form-select" aria-label="Default select example" required aria-required={true}>
                                             <option value="Cash">Cash</option>
                                             <option value="Zelle">Zelle</option>
                                             <option value="Pago Móvil">Pago Móvil</option>
@@ -142,11 +142,11 @@ function AddDelivery(props) {
                                 </div>
                                 <div className="form-group m-3">
                                     <label className="form-label" htmlFor="">Nombre</label>
-                                    <input className="form-control" name="name" value={data.client.name} onChange={onChange} type="text" />
+                                    <input className="form-control" name="name" value={data.client.name} onChange={onChange} type="text" required aria-required={true} />
                                 </div>
                                 <div className="form-group m-3">
                                     <label className="form-label" htmlFor="">N° de teléfono</label>
-                                    <input className="form-control" name="tlf" value={data.client.tlf} onChange={onChange} type="tel" />
+                                    <input className="form-control" name="tlf" value={data.client.tlf} onChange={onChange} type="tel" required aria-required={true} />
                                 </div>
                                 <div className="form-group m-3">
                                     <label className="form-label" htmlFor="">Email</label>
