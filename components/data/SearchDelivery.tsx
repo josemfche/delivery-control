@@ -160,7 +160,7 @@ function SearchDelivery() {
                             </select>
                         </Form.Group>
                         <Form.Group className={"d-flex align-items-end justify-content-center mt-3 col-sm-1 col-12"} controlId="formGridEmail">
-                            <Button type="submit" variant="primary" >Buscar</Button>
+                            <Button className={"w-100"} type="submit" variant="primary" >Buscar</Button>
                         </Form.Group>
                     </Row>
                     <Row>

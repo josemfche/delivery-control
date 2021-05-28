@@ -86,7 +86,7 @@ function DeliveriesList() {
                     <th scope="col">{item.data.client.name}</th>
                     <th scope="col">{item.data.completed ? "Completado" : "No completado"}</th>
                     <th scope="col">{dateFormatted ? dateFormatted : "No tiene fecha"}</th>
-                    <th scope="col">{formatAMPM(date) ? formatAMPM(date) : "No tiene hora"}</th>
+                    <th scope="col">{date ? formatAMPM(date) : "No tiene hora"}</th>
                   </tr>
                 )
               })
