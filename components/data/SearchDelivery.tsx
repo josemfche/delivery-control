@@ -102,7 +102,7 @@ function SearchDelivery() {
 
         const allDeliveries = () => {
             db.collection("deliveries")
-                .limit(20)
+                .limit(data.limit)
                 .where("owner", "==", auth.currentUser.displayName)
                 .get()
                 .then((querySnapshot) => {
