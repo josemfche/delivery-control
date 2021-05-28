@@ -38,8 +38,11 @@ function ModalComponent(props) {
                 <p>{props.data.delivery_zone}</p>
                 <br />
                 <label><strong>Datos de cliente: </strong></label>
-                <p><strong>Nombre:</strong> {props.data.client.name}</p>
-                <p><strong>tlf:</strong> {props.data.client.tlf}</p>
+                <br />
+                <br />
+                <span><strong>Nombre:</strong> {props.data.client.name}</span>
+                <br />
+                <span><strong>tlf:</strong> {props.data.client.tlf}</span>
             </Modal.Body>
             <Modal.Footer>
                 <div className="btn btn-success d-none d-md-block">

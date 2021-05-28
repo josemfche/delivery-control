@@ -28,7 +28,7 @@ function SearchDelivery() {
         id: "",
         dateFrom: new Date(Date.now()),
         dateTo: new Date(Date.now()),
-        limit: 1,
+        limit: 10,
         typeS: "allDeliveries",
         client: {}
     }

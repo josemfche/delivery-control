@@ -41,12 +41,12 @@ function AddDelivery(props) {
         delivery_zone: "",
         load_description: "",
         client: {
-            type: "",
+            type: "Persona",
             name: "",
             tlf: "",
             email: ""
         },
-        payment_method: "",
+        payment_method: "Cash",
         completed: false,
         owner: auth.currentUser.displayName
 
