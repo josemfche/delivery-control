@@ -10,6 +10,8 @@ function ModalComponent(props) {
 
     }
 
+    const dateFormatted = props.data.date ? `${props.data.date.getDate()}/${props.data.date.getMonth() + 1}/${props.data.date.getFullYear()}` : ""
+
 
     return (
         <Modal
@@ -41,11 +43,14 @@ function ModalComponent(props) {
             </Modal.Body>
             <Modal.Footer>
                 <div className="btn btn-success d-none d-md-block">
-                    <a className="text-white text-decoration-none" href={`https://wa.me/${props.data.client.tlf}?text=${"Su pedido es: " + encodeURI(props.data.load_description) + " Para entregar en: " + props.data.delivery_zone}`} target="_blank">Enviar <i className="bi bi-whatsapp" /></a>
+                    <a className="text-white text-decoration-none"
+                        href={`https://wa.me/${props.data.client.tlf}?text=${"Fecha: " + dateFormatted + "%0a%0a" + "Supedido es: " + encodeURI(props.data.load_description) + "%0a%0a" + "Para entregaren: " + encodeURI(props.data.delivery_zone) + "%0a%0a" + "Método de pago: " + encodeURI(props.data.payment_method) + "%0a%0a" + "Nombre del cliente: " + props.data.client.name + "%0a" + "Número del cliente: " + props.data.client.tlf}`}
+                        target="_blank">Enviar <i className="bi bi-whatsapp" /></a>
                 </div>
                 <div className="btn btn-success d-block d-md-none">
                     <a className="text-white text-decoration-none"
-                        href={`whatsapp://send?text=${"Fecha: " + props.data.date + "%0a%0a" + "Supedido es: " + encodeURI(props.data.load_description) + "%0a" + "Para entregaren: " + encodeURI(props.data.delivery_zone) + "%0a" + "Método de pago: " + encodeURI(props.data.payment_method) + "Nombre del cliente: " + props.data.client.name + "%0a%0a" + "Número del cliente: " + props.data.client.tlf + "%0a%0a"}`} data-action="share/whatsapp/share"
+                        href={`whatsapp://send?text=${"Fecha: " + dateFormatted + "%0a%0a" + "Supedido es: " + encodeURI(props.data.load_description) + "%0a%0a" + "Para entregaren: " + encodeURI(props.data.delivery_zone) + "%0a%0a" + "Método de pago: " + encodeURI(props.data.payment_method) + "%0a%0a" + "Nombre del cliente: " + props.data.client.name + "%0a" + "Número del cliente: " + props.data.client.tlf}`}
+                        data-action="share/whatsapp/share"
                         target="_blank">Compartir <i className="bi bi-whatsapp" /></a>
                 </div>
                 <Button onClick={onClose}>Close</Button>

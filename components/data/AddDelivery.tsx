@@ -35,7 +35,7 @@ function AddDelivery(props) {
     const initialState: IDeliveryObject = {
         schema_version: "v0.1",
         delivery_man: "",
-        date: null,
+        date: new Date(Date.now()),
         hour_completed: null,
         price: "",
         delivery_zone: "",
