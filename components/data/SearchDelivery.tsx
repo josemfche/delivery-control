@@ -101,7 +101,10 @@ function SearchDelivery() {
 
 
         const allDeliveries = () => {
-            db.collection("deliveries").limit(20).get()
+            db.collection("deliveries")
+                .limit(20)
+                .where("owner", "==", auth.currentUser.displayName)
+                .get()
                 .then((querySnapshot) => {
                     console.log("All deliveries")
                     const dataFormatted = querySnapshot.docs.map(item => {

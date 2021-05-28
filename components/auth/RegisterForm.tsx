@@ -1,13 +1,15 @@
 import { auth } from '../../firebase'
 import { useState } from 'react'
 import Link from 'next/link'
+import Router from "next/router";
 
 function RegisterForm() {
 
   const initialState = {
     email: "",
     password: "",
-    password1: ""
+    password1: "",
+    name: ""
   }
 
   const [data, setData] = useState(initialState)
@@ -27,7 +29,17 @@ function RegisterForm() {
         .then((userCredential) => {
           var user = userCredential.user
           setUser(user)
-          console.log(userData)
+
+          user.updateProfile({
+            displayName: data.name,
+          }).then(function () {
+            console.log("Updated")
+          }, function (error) {
+            console.log(error)
+          });
+
+          alert("Registro exitoso")
+          Router.push("/dashboard")
         })
         .catch((error) => {
           var errorCode = error.code
@@ -50,6 +62,10 @@ function RegisterForm() {
                 <div className="form-group mb-3">
                   <label className="form-label" id="inputGroup-sizing-sm">Email</label>
                   <input onChange={onChange} type="email" name="email" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" />
+                </div>
+                <div className="form-group mb-3">
+                  <label className="form-label" id="inputGroup-sizing-sm">Name</label>
+                  <input onChange={onChange} type="text" name="name" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" />
                 </div>
                 <div className="form-group mb-3">
                   <label className="form-label" id="inputGroup-sizing-sm">Password</label>
