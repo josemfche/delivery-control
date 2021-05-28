@@ -33,15 +33,15 @@ function NavHeader() {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul className="navbar-nav">
+                    {/*                     <ul className="navbar-nav">
                         <li className="nav-item">
                             <a className="nav-link active" aria-current="page" href="/">Home</a>
                         </li>
-                    </ul>
-                    <ul className="navbar-nav navbar-inverse">
+                    </ul> */}
+                    <ul className="navbar-nav">
                         {
                             userData ?
-                                <li className="nav-item me-3 d-flex pull-right">
+                                <li className="nav-item d-flex justify-content-end">
                                     <span className="nav-link active" aria-current="page">Hello {userData.displayName}</span>
                                     <button className="btn btn-danger" onClick={() => auth.signOut()}>Sign Out</button>
 
