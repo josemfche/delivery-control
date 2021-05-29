@@ -8,7 +8,7 @@ import { userContext } from '../../context/createContext/UserContext'
 import { db, auth } from '../../firebase'
 import { GET_DELIVERIES, GET_SINGLE_DELIVERY } from '../../context/types'
 
-function SearchDelivery() {
+const SearchDelivery: React.FC = () => {
 
     interface IDeliveryObject {
         id: string,
