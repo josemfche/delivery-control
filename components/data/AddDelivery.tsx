@@ -1,6 +1,5 @@
 import { db, auth } from '../../firebase'
 import { useContext, useEffect, useState } from 'react'
-import Button from 'react-bootstrap/Button';
 import ModalComponent from '../data/ModalComponent'
 import { userContext } from '../../context/createContext/UserContext'
 
