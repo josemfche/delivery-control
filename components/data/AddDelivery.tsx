@@ -159,12 +159,7 @@ function AddDelivery(props) {
                         <button className="btn btn-primary" type="submit" >Add Delivery</button>
                     </div >
                 </form>
-                <ModalComponent
-                    show={modalShow}
-                    data={data}
-                    onHide={() => setModalShow(false)}
-                    cleardata={() => setData(initialState)}
-                />
+                <ModalComponent show={modalShow} data={data} onHide={() => setModalShow(false)} cleardata={() => setData(initialState)} />
             </div>
         </div >
     )

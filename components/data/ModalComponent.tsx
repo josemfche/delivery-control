@@ -2,7 +2,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
 
-function ModalComponent(props): React.ReactNode {
+function ModalComponent(props) {
 
     const onClose = () => {
         props.onHide();
