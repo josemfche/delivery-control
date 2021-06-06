@@ -138,23 +138,23 @@ const SearchDelivery: React.FC = () => {
                 <Form onSubmit={onSubmit} className="my-5 shadow p-3 mb-5 bg-body rounded">
                     <h4 className="my-2">Búsqueda</h4>
                     <Row>
-                        <Form.Group sm={3} xs={12} as={Col} controlId="formGridEmail">
+                        <Form.Group sm={12} md={3} xs={12} as={Col} controlId="formGridEmail">
                             <Form.Label>ID</Form.Label>
                             <Form.Control onChange={onChange} name="id" type="text" placeholder="ID del delivery" />
                         </Form.Group>
-                        <Form.Group sm={2} xs={12} as={Col} controlId="formGridEmail">
+                        <Form.Group sm={12} md={2} xs={12} as={Col} controlId="formGridEmail">
                             <Form.Label>Fecha desde</Form.Label>
                             <Form.Control onChange={onChange} name="dateFrom" type="date" placeholder="Enter date" />
                         </Form.Group>
-                        <Form.Group sm={2} xs={12} as={Col} controlId="formGriddate">
+                        <Form.Group sm={12} md={2} xs={12} as={Col} controlId="formGriddate">
                             <Form.Label>Fecha hasta</Form.Label>
                             <Form.Control onChange={onChange} name="dateTo" type="date" placeholder="Enter date" />
                         </Form.Group>
-                        <Form.Group sm={2} xs={12} as={Col} controlId="formGridEmail">
+                        <Form.Group sm={12} md={2} xs={12} as={Col} controlId="formGridEmail">
                             <Form.Label>Resultados a mostrar</Form.Label>
                             <Form.Control onChange={onChange} value={data.limit} name="limit" min={1} type="number" placeholder="Introduzca cantidad límite" />
                         </Form.Group>
-                        <Form.Group sm={2} xs={12} as={Col} controlId="exampleForm.SelectCustom">
+                        <Form.Group sm={12} md={2} xs={12} as={Col} controlId="exampleForm.SelectCustom">
                             <Form.Label>Tipo de búsqueda</Form.Label>
                             <select onChange={onChange} defaultValue="allDeliveries" name="typeS" className="form-select" aria-label="Default select example">
                                 <option value="allDeliveries">Todos los deliveries</option>
@@ -162,7 +162,7 @@ const SearchDelivery: React.FC = () => {
                                 <option value="completados">Completados</option>
                             </select>
                         </Form.Group>
-                        <Form.Group className={"d-flex align-items-end justify-content-center mt-3 col-sm-1 col-12"} controlId="formGridEmail">
+                        <Form.Group className={"d-flex d-md-flex align-items-end justify-content-center mt-3 col-sm-12 col-xl-1 col-12"} controlId="formGridEmail">
                             <Button className={"w-100"} type="submit" variant="primary" >Buscar</Button>
                         </Form.Group>
                     </Row>
