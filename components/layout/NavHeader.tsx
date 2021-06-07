@@ -42,8 +42,8 @@ function NavHeader() {
                             {
                                 userData ?
                                     <li className="nav-item d-flex">
-                                        <span className="nav-link active" aria-current="page">Hello {userData.displayName}</span>
-                                        <button className="btn btn-danger" onClick={() => auth.signOut()}>Sign Out</button>
+                                        <span className="nav-link active" aria-current="page">Hola {userData.displayName}</span>
+                                        <button className="btn btn-danger" onClick={() => auth.signOut()}>Cerrar sesión</button>
 
                                     </li> : <></>
                             }

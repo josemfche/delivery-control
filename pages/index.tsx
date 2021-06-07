@@ -1,11 +1,14 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import RegisterForm from '../components/auth/RegisterForm'
+import RowInfo from '../components/info/RowInfo'
+import PrivateRoute from '../components/PrivateRoute'
 
 export default function Home() {
   return (
     <>
-      <h1 className="container bg-dark text-white text-center">Index</h1>
+      <PrivateRoute>
+        <RowInfo />
+      </PrivateRoute>
     </>
   )
 }

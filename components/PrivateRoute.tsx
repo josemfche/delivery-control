@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { userContext } from '../context/createContext/UserContext'
 import { auth } from '../firebase'
 import Router from 'next/router'
 
