@@ -98,7 +98,7 @@ function AddDelivery(props) {
     return (
         <div className="" >
             <div className="container">
-                <form onSubmit={onSubmit} className="row">
+                <form onSubmit={onSubmit} className="row justify-content-center mt-3">
                     <div className="col-12 col-sm-6 mb-3" >
                         <div className="card">
                             <h4 className="m-3">Datos del delivery</h4>
@@ -118,9 +118,7 @@ function AddDelivery(props) {
 
                             </div>
                         </div>
-                    </div>
-                    <div className="col-12 col-sm-6" >
-                        <div className="form-group mb-3">
+                        <div className="form-group my-3">
                             <div className="card">
                                 <h4 className="m-3">Datos del cliente</h4>
                                 <div className="form-group m-2 row">
@@ -154,10 +152,10 @@ function AddDelivery(props) {
                                 </div>
                             </div>
                         </div>
+                        <div className="d-flex justify-content-end">
+                            <button className="btn btn-primary mb-3" type="submit" >Add Delivery</button>
+                        </div >
                     </div>
-                    <div className="d-flex justify-content-end">
-                        <button className="btn btn-primary" type="submit" >Add Delivery</button>
-                    </div >
                 </form>
                 <ModalComponent show={modalShow} data={data} onHide={() => setModalShow(false)} cleardata={() => setData(initialState)} />
             </div>
