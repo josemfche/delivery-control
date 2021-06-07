@@ -6,9 +6,11 @@ const RowInfo = () => {
         <div className="container">
             <div className="row my-5 align-items-center">
                 <div className="col">
-                    <h2>Info 1</h2>
-                    <p>Las partituras se han perdido, excepto el recitativo conocido como Lamento d'Arianna («Lamento de Ariadna»), que se ha conservado gracias a que Monteverdi lo publicó de forma independiente en diferentes versiones.
-                        Este fragmento forma parte de las óperas más representativas del Barroco, es una de las piezas más influyentes en la obra lírica posterior, se convirtió en una obra musical de gran influencia y ha sido ampliamente imitado.
+                    <h2>Qué hace esta app?</h2>
+                    <p>Es una app para el control de los deliveries que permite el registro detallado de cada uno de los deliveries
+                        realizados por tu empresa, también permite exportar los deliveries a una hoja de excel.
+                        Además puedes comunicar a tus repartidores que se ha solicitado un delivery por medio del botón de comnpartir
+                        en Whatsapp que aparece luego de crear una nueva solicitud en la app.
                     </p>
                 </div>
                 <div className="col text-center">
